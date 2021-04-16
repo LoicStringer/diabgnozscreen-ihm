@@ -1,0 +1,10 @@
+<div> <span class="align-self-center mb-1 mr-2 text-muted">
+		Shows {{page.numberOfElements}} of {{page.totalElements}}
+	</span>
+	<a [routerLink]="" class="btn btn-outline" [ngClass]="{'disabled': page.first }" (click)="previousPage()">
+		Page précédente
+	</a>
+	<a [routerLink]="" class="btn btn-outline" [ngClass]="{'disabled': page.last }" (click)="nextPage()">
+		Page suivante
+	</a>
+</div>
