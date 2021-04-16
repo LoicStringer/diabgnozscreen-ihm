@@ -1,8 +1,8 @@
 import  { Sort } from './sort';
 import  { Pageable } from './pageable';
  
-export class Page<Patient> {
-  content!: Array<Patient>;
+export class Page<T> {
+  content!: Array<T>;
   pageable: Pageable;
   last!: boolean;
   totalPages!: number;
