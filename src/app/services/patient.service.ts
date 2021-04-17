@@ -9,7 +9,7 @@ import { Pageable } from "../pagination/pageable";
 export class PatientService {
 
 	patientPageSubject: Subject<Page<Patient>> = new Subject<Page<Patient>>();
-	private patientsPage: Page<Patient> = new Page<Patient>();
+	patientsPage: Page<Patient> = new Page<Patient>();
 
 	constructor(private httpClient: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class PatientService {
 	}
 
 	buildUrl(pageable: Pageable): string {
-		const apiUrl = 'http://localhost:8081/patients';
+		const apiUrl = 'http://localhost:8081/diabgnoz/patients';
 		const paginationOptions = '?page=' + pageable.pageNumber
 			+ '&size=' + pageable.pageSize
 			+ '&sort=';

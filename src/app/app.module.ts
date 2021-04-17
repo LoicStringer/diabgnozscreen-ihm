@@ -8,6 +8,7 @@ import { PaginationToolComponent } from './pagination-tool/pagination-tool.compo
 import { PatientItemComponent } from './patient-item/patient-item.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientService } from './services/patient.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PatientService } from './services/patient.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+	HttpClientModule
   ],
   providers: [
 	PaginationService,

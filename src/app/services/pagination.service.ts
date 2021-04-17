@@ -1,6 +1,8 @@
+import { Injectable } from "@angular/core";
 import { Page } from "../pagination/page";
 import { Pageable } from "../pagination/pageable";
 
+@Injectable()
 export class PaginationService{
 	
 	  constructor() { }
@@ -12,7 +14,6 @@ export class PaginationService{
     }
     return page.pageable;
   }
-	
 	
 	public getPreviousPage(page: Page<any>): Pageable {
     if(!page.first) {

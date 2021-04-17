@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Patient } from '../models/patient.model';
 import { Page } from '../pagination/page';
+import { Pageable } from '../pagination/pageable';
 import { PaginationService } from '../services/pagination.service';
 import { PatientService } from '../services/patient.service';
 
@@ -12,7 +13,7 @@ import { PatientService } from '../services/patient.service';
 })
 export class PatientListComponent implements OnInit {
 
-	@Input() patientsPage!: Page<Patient>;
+	patientsPage!: Page<Patient>;
 	patientPageSuscription!: Subscription;
 
 	constructor(
@@ -24,13 +25,18 @@ export class PatientListComponent implements OnInit {
 		this.getPatientsData();
 	}
 
+	getPatientsList() {
+		return this.patientsPage.content;
+	}
+
 	private getPatientsData(): void {
+		this.patientService.getPatientsPage(new Pageable);
 		this.patientPageSuscription = this.patientService.patientPageSubject.subscribe(
 			(patientsPage: Page<Patient>) => {
 				this.patientsPage = patientsPage;
-				this.patientService.emitPatientPageSubject();
 			}
 		);
+		this.patientService.emitPatientPageSubject();
 	}
 
 	public getNextPage(): void {
@@ -49,5 +55,9 @@ export class PatientListComponent implements OnInit {
 
 	trackByPatientId(index: number, patient: Patient) {
 		return patient.patientId;
+	}
+
+	onFetch() {
+		this.patientService.getPatientsPage(new Pageable);
 	}
 }
