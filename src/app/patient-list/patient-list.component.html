@@ -1,0 +1,12 @@
+<div class="col-xs-12">
+	<h4>Patients Records</h4>
+	<ul class="list-group">
+		<app-patient-item *ngFor="let patient of patientsPage.content" [patient]="patient">
+		</app-patient-item>
+	</ul>
+	<app-pagination-tool 
+		[page]="patientsPage" 
+		(nextPageEvent)="getNextPage()" 
+		(previousPageEvent)="getPreviousPage()">
+	</app-pagination-tool>
+</div>

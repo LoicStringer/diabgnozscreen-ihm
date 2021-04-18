@@ -1,0 +1,8 @@
+<div>
+	<a [routerLink]="" class="btn btn-outline" [ngClass]="{'disabled': page.first }" (click)="previousPage()">
+		Page précédente
+	</a>
+	<a [routerLink]="" class="btn btn-outline" [ngClass]="{'disabled': page.last }" (click)="nextPage()">
+		Page suivante
+	</a>
+</div>
