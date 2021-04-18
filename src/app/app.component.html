@@ -1,15 +1,20 @@
 <nav class="navbar navbar-default">
-
 	<div class="container-fluid">
-		<a class="navbar-brand">
+		<a class="navbar-brand" href="#">
 			<img src="assets/images/Mediscreen-logo.png" width="40" height="40" alt="Logo Mediscreen">
 		</a>
 		<ul class="nav navbar-nav">
-			<li routerLinkActive="active"><a routerLink="patients-list">Patients</a></li>
-			<li routerLinkActive="active"><a routerLink="new-patient">Nouveau Patient</a></li>
+			<li class="nav-item dropdown">
+				<a class="nav-link  dropdown-toggle" href="#" data-bs-toggle="dropdown">Patients</a>
+				<ul class="dropdown-menu">
+					<li routerLinkActive="active"><a class="dropdown-item" routerLink="patients-list">Patients list</a></li>
+					<li><a class="dropdown-item" href="#"> Submenu item 2 </a></li>
+					<li><a class="dropdown-item" href="#"> Submenu item 3 </a></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
-	<div class="navbar-right"></div>
+
 </nav>
 <div class="container">
 	<div class="row">

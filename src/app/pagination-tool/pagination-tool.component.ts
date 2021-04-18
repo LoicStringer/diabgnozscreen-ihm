@@ -12,6 +12,7 @@ export class PaginationToolComponent implements OnInit {
 	@Output() nextPageEvent = new EventEmitter();
 	@Output() previousPageEvent = new EventEmitter();
 
+
 	constructor() { }
 
 	ngOnInit(): void {
@@ -25,5 +26,6 @@ export class PaginationToolComponent implements OnInit {
 		this.previousPageEvent.emit(null);
 	}
 
+  
 
 }

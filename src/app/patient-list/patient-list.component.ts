@@ -25,6 +25,11 @@ export class PatientListComponent implements OnInit {
 		this.getPatientsData();
 	}
 
+	ngOnDestroy() {
+		this.patientPageSuscription.unsubscribe();
+	}
+
+
 	getPatientsList() {
 		return this.patientsPage.content;
 	}
@@ -41,23 +46,16 @@ export class PatientListComponent implements OnInit {
 
 	public getNextPage(): void {
 		this.patientsPage.pageable = this.paginationService.getNextPage(this.patientsPage);
-		this.getPatientsData();
+
 	}
 
 	public getPreviousPage(): void {
 		this.patientsPage.pageable = this.paginationService.getPreviousPage(this.patientsPage);
-		this.getPatientsData();
-	}
 
-	ngOnDestroy() {
-		this.patientPageSuscription.unsubscribe();
 	}
 
 	trackByPatientId(index: number, patient: Patient) {
 		return patient.patientId;
 	}
 
-	onFetch() {
-		this.patientService.getPatientsPage(new Pageable);
-	}
 }

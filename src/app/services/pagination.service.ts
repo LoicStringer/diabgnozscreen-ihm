@@ -21,4 +21,11 @@ export class PaginationService{
     }
     return page.pageable;
   }
+
+public getPageInNewSize(page: Page<any>, pageSize: number): Pageable {
+    page.pageable.pageSize = pageSize;
+    page.pageable.pageNumber = Pageable.FIRST_PAGE_NUMBER;
+ 
+    return page.pageable;
+  }
 }
