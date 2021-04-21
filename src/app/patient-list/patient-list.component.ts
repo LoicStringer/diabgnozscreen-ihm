@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Patient } from '../models/patient.model';
 import { Page } from '../pagination/page';
-import { Pageable } from '../pagination/pageable';
 import { PaginationService } from '../services/pagination.service';
 import { PatientService } from '../services/patient.service';
 
@@ -13,7 +12,7 @@ import { PatientService } from '../services/patient.service';
 })
 export class PatientListComponent implements OnInit {
 
-	patientsPage!: Page<Patient>;
+	patientsPage: Page<Patient> = new Page<Patient>();
 	patientPageSuscription!: Subscription;
 
 	constructor(
@@ -29,13 +28,8 @@ export class PatientListComponent implements OnInit {
 		this.patientPageSuscription.unsubscribe();
 	}
 
-
-	getPatientsList() {
-		return this.patientsPage.content;
-	}
-
 	private getPatientsData(): void {
-		this.patientService.getPatientsPage(new Pageable);
+		this.patientService.getPatientsPage(this.patientsPage.pageable);
 		this.patientPageSuscription = this.patientService.patientPageSubject.subscribe(
 			(patientsPage: Page<Patient>) => {
 				this.patientsPage = patientsPage;
@@ -46,16 +40,12 @@ export class PatientListComponent implements OnInit {
 
 	public getNextPage(): void {
 		this.patientsPage.pageable = this.paginationService.getNextPage(this.patientsPage);
-
+		this.getPatientsData();
 	}
 
 	public getPreviousPage(): void {
 		this.patientsPage.pageable = this.paginationService.getPreviousPage(this.patientsPage);
-
-	}
-
-	trackByPatientId(index: number, patient: Patient) {
-		return patient.patientId;
+		this.getPatientsData();
 	}
 
 }

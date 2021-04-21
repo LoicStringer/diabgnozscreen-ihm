@@ -1,4 +1,4 @@
-<li class="list-group-item">
+<li [ngClass]="{'list-group-item' : true}">
 	<h6>Last Name : {{patient.patientLastName}}</h6>
 	<h6>First Name : {{patient.patientFirstName}}</h6>
 	<h6>Birth Date : {{patient.patientBirthDate}}</h6>
@@ -6,4 +6,5 @@
 	<h6>Address : {{patient.patientAddress}}</h6>
 	<h6>Phone Number : {{patient.patientPhoneNumber}}</h6>
 	<h6>Email : {{patient.patientEmail}}</h6>
+	<a [routerLink]="['details',patient.patientId]">Details</a>
 </li>

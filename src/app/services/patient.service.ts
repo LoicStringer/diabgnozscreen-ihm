@@ -9,7 +9,10 @@ import { Pageable } from "../pagination/pageable";
 export class PatientService {
 
 	patientPageSubject: Subject<Page<Patient>> = new Subject<Page<Patient>>();
+	patientSubject: Subject<Patient> = new Subject<Patient>();
 	patientsPage: Page<Patient> = new Page<Patient>();
+	patient: Patient = new Patient();
+	apiUrl = 'http://localhost:8081/diabgnoz/patients/';
 
 	constructor(private httpClient: HttpClient) { }
 
@@ -17,18 +20,21 @@ export class PatientService {
 		this.patientPageSubject.next(this.patientsPage);
 	}
 
-	buildUrl(pageable: Pageable): string {
-		const apiUrl = 'http://localhost:8081/diabgnoz/patients';
+	emitPatientSubject() {
+		this.patientSubject.next(this.patient);
+	}
+
+	buildUrlForPatientsPage(pageable: Pageable): string {
 		const paginationOptions = '?page=' + pageable.pageNumber
 			+ '&size=' + pageable.pageSize
 			+ '&sort=';
-		const patientsUrl = apiUrl + paginationOptions;
+		const patientsUrl = this.apiUrl + paginationOptions;
 		return patientsUrl;
 	}
 
 	getPatientsPage(pageable: Pageable) {
 		this.httpClient
-			.get<Page<Patient>>(this.buildUrl(pageable))
+			.get<Page<Patient>>(this.buildUrlForPatientsPage(pageable))
 			.subscribe(
 				(response) => {
 					this.patientsPage = response;
@@ -39,6 +45,34 @@ export class PatientService {
 				}
 			);
 	}
-	
 
+	getPatientById(patientId: number) {
+		const url = this.apiUrl + patientId;
+		this.httpClient
+			.get<Patient>(url)
+			.subscribe(
+				(response) => {
+					this.patient = response;
+					this.emitPatientSubject();
+				},
+				(error) => {
+					console.log('Erreur de chargement ! ' + error);
+				}
+			);
+	}
+
+	updatePatient(patientId: number, patientToUpdate: Patient) {
+		const url = this.apiUrl + patientId;
+		this.httpClient
+			.put<Patient>(url,patientToUpdate)
+			.subscribe(
+				(response) => {
+					this.patient = response;
+					this.emitPatientSubject();
+				},
+				(error) => {
+					console.log('Erreur de chargement ! ' + error);
+				}
+			);
+	}
 }

@@ -19,11 +19,11 @@ export class PaginationToolComponent implements OnInit {
 	}
 
 	nextPage(): void {
-		this.nextPageEvent.emit(null);
+		this.nextPageEvent.emit(this.page);
 	}
 
 	previousPage(): void {
-		this.previousPageEvent.emit(null);
+		this.previousPageEvent.emit(this.page);
 	}
 
   

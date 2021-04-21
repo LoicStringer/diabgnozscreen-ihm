@@ -1,0 +1,60 @@
+<div class="row" *ngIf="!isEditable">
+	<div class="col-sm-8 col-sm-offset-2">
+		<h3>Last Name : {{patient.patientLastName }}</h3>
+		<h3>First Name : {{patient.patientFirstName }}</h3>
+		<h3>Birth Date : {{patient.patientBirthDate }}</h3>
+		<h3>Gender : {{patient.patientGender }}</h3>
+		<h3>Address : {{patient.patientAddress }}</h3>
+		<h3>Phone Number : {{patient.patientPhoneNumber }}</h3>
+		<h3>Email : {{patient.patientEmail}}</h3>
+		<button class="btn btn-primary" [disabled]="isEditable" (click)="onEdit()">Edit</button>
+		<button class="btn btn-danger" [disabled]="isEditable">Delete</button>
+		<button *ngIf="isEditable" class="btn btn-success">Update</button>
+		<a routerLink='/patients'>Retour à la liste</a>
+	</div>
+</div>
+
+<div class="row" *ngIf="isEditable">
+	<div class="col-sm-8 col-sm-offset-2">
+		<form (ngSubmit)="onSubmitForm(patientEditForm)" #patientEditForm="ngForm">
+			<div class="form-group">
+				<h3>Last Name : {{patient.patientLastName }} </h3>
+				<input type="text" id="patientLastName" class="form-control" name="patientLastName"
+					[(ngModel)]="patient.patientLastName">
+			</div>
+			<div class="form-group">
+				<h3>First Name : {{patient.patientFirstName }} </h3>
+				<input type="text" id="patientFirstName" class="form-control" name="patientFirstName"
+					[(ngModel)]="patient.patientFirstName">
+			</div>
+			<div class="form-group">
+				<h3>Birth Date : {{patient.patientBirthDate }} </h3>
+				<input type="date" id="patientBirthDate" class="form-control" name="patientBirthDate"
+					[(ngModel)]="patient.patientBirthDate">
+			</div>
+			<h3>Gender : {{patient.patientGender }}</h3>
+			<select id="status" class="form-control" name="patientGender" [(ngModel)]="patient.patientGender">
+				<option value="M">Male</option>
+				<option value="F">Female</option>
+			</select>
+			<div class="form-group">
+				<h3>Address : {{patient.patientAddress }} </h3>
+				<input type="text" id="patientAddress" class="form-control" name="patientAddress"
+					[(ngModel)]="patient.patientAddress">
+			</div>
+			<div class="form-group">
+				<h3>Phone Number : {{patient.patientPhoneNumber }} </h3>
+				<input type="text" id="patientPhoneNumber" class="form-control" name="patientPhoneNumber"
+					[(ngModel)]="patient.patientPhoneNumber">
+			</div>
+			<div class="form-group">
+				<h3>Email : {{patient.patientEmail }} </h3>
+				<input type="text" id="patientEmail" class="form-control" name="patientEmail"
+					[(ngModel)]="patient.patientEmail">
+			</div>
+			<button class="btn btn-danger" (click)="onCancelEdit()">Cancel</button>
+			<button type="submit" *ngIf="isEditable" class="btn btn-success">Update</button>
+		</form>
+	</div>
+</div>
+

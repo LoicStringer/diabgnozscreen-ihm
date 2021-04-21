@@ -9,18 +9,23 @@ import { PatientItemComponent } from './patient-item/patient-item.component';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { PatientService } from './services/patient.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SinglePatientViewComponent } from './single-patient-view/single-patient-view.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     PaginationToolComponent,
     PatientItemComponent,
-    PatientListComponent
+    PatientListComponent,
+    SinglePatientViewComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-	HttpClientModule
+	HttpClientModule,
+	FormsModule,
+	ReactiveFormsModule
   ],
   providers: [
 	PaginationService,
