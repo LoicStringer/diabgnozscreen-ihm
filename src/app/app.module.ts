@@ -11,6 +11,7 @@ import { PatientService } from './services/patient.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SinglePatientViewComponent } from './single-patient-view/single-patient-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NewPatientViewComponent } from './new-patient-view/new-patient-view.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     PaginationToolComponent,
     PatientItemComponent,
     PatientListComponent,
-    SinglePatientViewComponent
+    SinglePatientViewComponent,
+    NewPatientViewComponent
   ],
   imports: [
     BrowserModule,

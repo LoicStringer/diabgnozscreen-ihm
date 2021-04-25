@@ -24,17 +24,17 @@ export class PatientService {
 		this.patientSubject.next(this.patient);
 	}
 
-	buildUrlForPatientsPage(pageable: Pageable): string {
-		const paginationOptions = '?page=' + pageable.pageNumber
+	buildUrlPaginationOptions(pageable: Pageable): string {
+		const paginationOptions = 
+			'?page=' + pageable.pageNumber
 			+ '&size=' + pageable.pageSize
 			+ '&sort=';
-		const patientsUrl = this.apiUrl + paginationOptions;
-		return patientsUrl;
+		return paginationOptions;
 	}
 
 	getPatientsPage(pageable: Pageable) {
 		this.httpClient
-			.get<Page<Patient>>(this.buildUrlForPatientsPage(pageable))
+			.get<Page<Patient>>(this.apiUrl + this.buildUrlPaginationOptions(pageable))
 			.subscribe(
 				(response) => {
 					this.patientsPage = response;
@@ -61,10 +61,9 @@ export class PatientService {
 			);
 	}
 
-	updatePatient(patientId: number, patientToUpdate: Patient) {
-		const url = this.apiUrl + patientId;
+	addNewPatient(patientToAdd: Patient) {
 		this.httpClient
-			.put<Patient>(url,patientToUpdate)
+			.post<Patient>(this.apiUrl, patientToAdd)
 			.subscribe(
 				(response) => {
 					this.patient = response;
@@ -75,4 +74,21 @@ export class PatientService {
 				}
 			);
 	}
+
+	updatePatient(patientId: number, patientToUpdate: Patient) {
+		const url = this.apiUrl + patientId;
+		this.httpClient
+			.put<Patient>(url, patientToUpdate)
+			.subscribe(
+				(response) => {
+					this.patient = response;
+					this.emitPatientSubject();
+				},
+				(error) => {
+					console.log('Erreur de chargement ! ' + error);
+				}
+			);
+	}
+
+
 }
