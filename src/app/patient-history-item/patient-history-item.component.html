@@ -1,0 +1,13 @@
+<li *ngIf="!isEditable" [ngClass]="{'list-group-item' : true}" id="note">
+	<label>Note date : </label>
+	<p>{{note.createdDate | date : 'medium'}}</p>
+	<label>Note content : </label>
+	<p>{{note.noteContent}}</p>
+	<div *ngIf="note.lastMofiedDate!=null">
+		<label>Last modified date: </label>
+		<p>{{note.lastMofiedDate}}</p>
+	</div>
+	<button class="btn btn-primary float-right" [disabled]="isEditable" (click)="onEdit()">Edit</button>
+	<button class="btn btn-danger float-right" [disabled]="isEditable">Delete</button>
+	<button *ngIf="isEditable" class="btn btn-success">Update</button>
+</li>

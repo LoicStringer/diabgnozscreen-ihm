@@ -1,0 +1,7 @@
+<div class="col-xs-12" id="patientHistory">
+	<ul class="list-group">
+		<app-patient-history-item *ngFor="let note of notesPage.content" [note]="note"></app-patient-history-item>
+	</ul>
+	<app-pagination-tool [page]="notesPage" (nextPageEvent)="getNextPage()" (previousPageEvent)="getPreviousPage()">
+	</app-pagination-tool>
+</div>

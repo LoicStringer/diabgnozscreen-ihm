@@ -1,0 +1,55 @@
+<div class="row" *ngIf="!isSubmitted">
+	<div class="col-sm-8 col-sm-offset-2">
+		<form [formGroup]="patientForm" (ngSubmit)="onSubmitForm()">
+			<div class="form-group">
+				<h3 for="patientLastName">Patient Last Name</h3>
+				<input type="text" id="patientLastName" class="form-control" formControlName="patientLastName">
+			</div>
+			<div class="form-group">
+				<h3 for="patientFirstName">Patient First Name</h3>
+				<input type="text" id="patientFirstName" class="form-control" formControlName="patientFirstName">
+			</div>
+			<div class="form-group">
+				<h3 for="patientBirthDate">Patient Birth Date</h3>
+				<input type="date" id="patientBirthDate" class="form-control" formControlName="patientBirthDate">
+			</div>
+			<div class="form-group">
+				<h3 for="patientGender">Patient Gender</h3>
+				<select id="patientGender" class="form-control" formControlName="patientGender">
+					<option [ngValue]="null">Select patient gender</option>
+					<option value="M">Male</option>
+					<option value="F">Female</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<h3 for="patientAddress">Patient Address</h3>
+				<input type="text" id="patientAddress" class="form-control" formControlName="patientAddress">
+			</div>
+			<div class="form-group">
+				<h3 for="patientPhoneNumber">Patient Phone Number</h3>
+				<input type="text" id="patientPhoneNumber" class="form-control" formControlName="patientPhoneNumber">
+			</div>
+			<div class="form-group">
+				<h3 for="patientEmail">Patient Email</h3>
+				<input type="email" id="patientEmail" class="form-control" formControlName="patientEmail">
+			</div>
+			<button type="reset" class="btn btn-primary" (click)="onClearForm()">Clear</button>
+			<button type="submit" class="btn btn-success" [disabled]="patientForm.invalid">Add</button>
+			<button class="btn btn-danger" (click)="onCancel()">Cancel</button>
+		</form>
+	</div>
+</div>
+
+<div class="row" *ngIf="isSubmitted">
+	<div class="col-sm-8 col-sm-offset-2">
+		<h4 class="text-success">Patient has been successfully added</h4>
+		<h3>Last Name : {{newPatient.patientLastName }}</h3>
+		<h3>First Name : {{newPatient.patientFirstName }}</h3>
+		<h3>Birth Date : {{newPatient.patientBirthDate }}</h3>
+		<h3>Gender : {{newPatient.patientGender }}</h3>
+		<h3>Address : {{newPatient.patientAddress }}</h3>
+		<h3>Phone Number : {{newPatient.patientPhoneNumber }}</h3>
+		<h3>Email : {{newPatient.patientEmail}}</h3>
+		<a routerLink=''>Retour à l'accueil'</a>
+	</div>
+</div>
