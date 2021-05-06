@@ -12,6 +12,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { SinglePatientViewComponent } from './single-patient-view/single-patient-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewPatientViewComponent } from './new-patient-view/new-patient-view.component';
+import { SinglePatientHistoryComponent } from './single-patient-history/single-patient-history.component';
+import { PatientHistoryService } from './services/patient-history.service';
+import { PatientHistoryItemComponent } from './patient-history-item/patient-history-item.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { NewPatientViewComponent } from './new-patient-view/new-patient-view.com
     PatientItemComponent,
     PatientListComponent,
     SinglePatientViewComponent,
-    NewPatientViewComponent
+    NewPatientViewComponent,
+    SinglePatientHistoryComponent,
+    PatientHistoryItemComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,8 @@ import { NewPatientViewComponent } from './new-patient-view/new-patient-view.com
   ],
   providers: [
 	PaginationService,
-	PatientService
+	PatientService,
+	PatientHistoryService
 ],
   bootstrap: [AppComponent]
 })

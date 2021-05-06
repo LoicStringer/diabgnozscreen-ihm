@@ -28,8 +28,8 @@ export class PatientListComponent implements OnInit {
 		this.patientPageSuscription.unsubscribe();
 	}
 
-	private getPatientsData(): void {
-		this.patientService.getPatientsPage(this.patientsPage.pageable);
+	onSearch(patientLastName:string){
+		this.patientService.getPatientsPageByLastName(patientLastName,this.patientsPage.pageable);
 		this.patientPageSuscription = this.patientService.patientPageSubject.subscribe(
 			(patientsPage: Page<Patient>) => {
 				this.patientsPage = patientsPage;
@@ -47,5 +47,16 @@ export class PatientListComponent implements OnInit {
 		this.patientsPage.pageable = this.paginationService.getPreviousPage(this.patientsPage);
 		this.getPatientsData();
 	}
+
+	private getPatientsData(): void {
+		this.patientService.getPatientsPage(this.patientsPage.pageable);
+		this.patientPageSuscription = this.patientService.patientPageSubject.subscribe(
+			(patientsPage: Page<Patient>) => {
+				this.patientsPage = patientsPage;
+			}
+		);
+		this.patientService.emitPatientPageSubject();
+	}
+
 
 }

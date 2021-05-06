@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Patient } from "../models/patient.model";
 import { Page } from "../pagination/page";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Subject } from "rxjs";
 import { Pageable } from "../pagination/pageable";
 
@@ -25,16 +25,31 @@ export class PatientService {
 	}
 
 	buildUrlPaginationOptions(pageable: Pageable): string {
-		const paginationOptions = 
+		const paginationOptions =
 			'?page=' + pageable.pageNumber
 			+ '&size=' + pageable.pageSize
-			+ '&sort=';
+			+ '&sort=patientLastName';
 		return paginationOptions;
 	}
 
 	getPatientsPage(pageable: Pageable) {
 		this.httpClient
 			.get<Page<Patient>>(this.apiUrl + this.buildUrlPaginationOptions(pageable))
+			.subscribe(
+				(response) => {
+					this.patientsPage = response;
+					this.emitPatientPageSubject();
+				},
+				(error) => {
+					console.log('Erreur de chargement ! ' + error);
+				}
+			);
+	}
+
+	getPatientsPageByLastName(patientLastName: string, pageable: Pageable) {
+		const params = new HttpParams().set('patientLastName',patientLastName);
+		this.httpClient
+			.get<Page<Patient>>(this.apiUrl + this.buildUrlPaginationOptions(pageable),{params:params})
 			.subscribe(
 				(response) => {
 					this.patientsPage = response;

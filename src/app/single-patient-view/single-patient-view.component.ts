@@ -3,8 +3,11 @@ import { NgForm } from '@angular/forms';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 import { Patient } from '../models/patient.model';
+
 import { PatientService } from '../services/patient.service';
+
 
 @Component({
 	selector: 'app-single-patient-view',
@@ -17,6 +20,7 @@ export class SinglePatientViewComponent implements OnInit {
 	patientSuscription!: Subscription;
 	isEditable!: boolean;
 	
+
 	constructor(private route: ActivatedRoute,
 		private patientService: PatientService,
 		private router: Router) { }
@@ -49,10 +53,10 @@ export class SinglePatientViewComponent implements OnInit {
 		this.patient.patientAddress = form.value['patientAddress'];
 		this.patient.patientPhoneNumber = form.value['patientPhoneNumber'];
 		this.patient.patientEmail = form.value['patientEmail'];
-		this.patientService.updatePatient(+patientId!,this.patient);
+		this.patientService.updatePatient(+patientId!, this.patient);
 		this.ngOnInit();
-		this.router.navigate(['patients/details/'+patientId]);
-		this.isEditable=false;
+		this.router.navigate(['patients/details/' + patientId]);
+		this.isEditable = false;
 	}
 
 	onEdit() {
