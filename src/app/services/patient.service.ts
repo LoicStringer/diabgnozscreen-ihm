@@ -26,30 +26,19 @@ export class PatientService {
 
 	buildUrlPaginationOptions(pageable: Pageable): string {
 		const paginationOptions =
-			'?page=' + pageable.pageNumber
+			'&page=' + pageable.pageNumber
 			+ '&size=' + pageable.pageSize
 			+ '&sort=patientLastName';
 		return paginationOptions;
 	}
 
-	getPatientsPage(pageable: Pageable) {
-		this.httpClient
-			.get<Page<Patient>>(this.apiUrl + this.buildUrlPaginationOptions(pageable))
-			.subscribe(
-				(response) => {
-					this.patientsPage = response;
-					this.emitPatientPageSubject();
-				},
-				(error) => {
-					console.log('Erreur de chargement ! ' + error);
-				}
-			);
-	}
-
-	getPatientsPageByLastName(patientLastName: string, pageable: Pageable) {
-		const params = new HttpParams().set('patientLastName',patientLastName);
-		this.httpClient
-			.get<Page<Patient>>(this.apiUrl + this.buildUrlPaginationOptions(pageable),{params:params})
+	getPatientsPage(patientLastName: any, pageable: Pageable) {
+		let url = this.apiUrl+"?patientLastName"+this.buildUrlPaginationOptions(pageable);
+		if(patientLastName!=undefined){
+			url = this.apiUrl+"?patientLastName="+patientLastName+this.buildUrlPaginationOptions(pageable);
+		}
+		this.httpClient 
+			.get<Page<Patient>>(url)
 			.subscribe(
 				(response) => {
 					this.patientsPage = response;
@@ -104,6 +93,5 @@ export class PatientService {
 				}
 			);
 	}
-
-
+	
 }

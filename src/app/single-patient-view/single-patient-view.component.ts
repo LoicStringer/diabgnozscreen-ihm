@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
-
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { Subscription } from 'rxjs';
-
 import { Patient } from '../models/patient.model';
-
 import { PatientService } from '../services/patient.service';
-
 
 @Component({
 	selector: 'app-single-patient-view',
@@ -19,15 +15,17 @@ export class SinglePatientViewComponent implements OnInit {
 	patient!: Patient;
 	patientSuscription!: Subscription;
 	isEditable!: boolean;
-	
+	isAddingNote!: boolean;
+	noteContent!: string;
+	patientId = this.route.snapshot.paramMap.get('patientId');
+
 
 	constructor(private route: ActivatedRoute,
 		private patientService: PatientService,
-		private router: Router) { }
+	) { }
 
 	ngOnInit() {
-		const patientId = this.route.snapshot.paramMap.get('patientId');
-		this.getPatientData(+patientId!);
+		this.getPatientData(+this.patientId!);
 	}
 
 	ngOnDestroy() {
@@ -44,8 +42,7 @@ export class SinglePatientViewComponent implements OnInit {
 		this.patientService.emitPatientSubject();
 	}
 
-	onSubmitForm(form: NgForm) {
-		const patientId = this.route.snapshot.paramMap.get('patientId');
+	onSubmitPatientForm(form: NgForm) {
 		this.patient.patientLastName = form.value['patientLastName'];
 		this.patient.patientFirstName = form.value['patientFirstName'];
 		this.patient.patientBirthDate = form.value['patientBirthDate'];
@@ -53,18 +50,32 @@ export class SinglePatientViewComponent implements OnInit {
 		this.patient.patientAddress = form.value['patientAddress'];
 		this.patient.patientPhoneNumber = form.value['patientPhoneNumber'];
 		this.patient.patientEmail = form.value['patientEmail'];
-		this.patientService.updatePatient(+patientId!, this.patient);
-		this.ngOnInit();
-		this.router.navigate(['patients/details/' + patientId]);
+		this.patientService.updatePatient(+this.patientId!, this.patient);
 		this.isEditable = false;
+	}
+
+	onAddNote() {
+		this.isAddingNote = true;
+	}
+
+	onClearNote() {
+		this.noteContent = '';
+	}
+
+	onCancelAddNote() {
+		this.onClearNote();
+		this.isAddingNote = false;
 	}
 
 	onEdit() {
 		this.isEditable = true;
 	}
 
-	onCancelEdit() {
-		this.ngOnInit();
+	onCancelEdit(form:NgForm) {
+		form.reset();
 		this.isEditable = false;
+		this.getPatientData(+this.patientId!);
 	}
+
+
 }

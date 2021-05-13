@@ -1,4 +1,3 @@
-
 <a routerLink='/patients'>Retour à la liste</a>
 <h3>Patient Infos</h3>
 <div class="row" *ngIf="!isEditable">
@@ -11,22 +10,12 @@
 		<h5>Phone Number : {{patient.patientPhoneNumber }}</h5>
 		<h5>Email : {{patient.patientEmail}}</h5>
 		<button class="btn btn-primary" [disabled]="isEditable" (click)="onEdit()">Edit</button>
-		<button class="btn btn-danger" [disabled]="isEditable">Delete</button>
 		<button *ngIf="isEditable" class="btn btn-success">Update</button>
 	</div>
 </div>
-
-<h3>Patient History</h3>
-<div class="row">
-	<div class="col-sm-8 col-sm-offset-2">
-		<app-single-patient-history></app-single-patient-history>
-	</div>
-</div>
-
-
 <div class="row" *ngIf="isEditable">
 	<div class="col-sm-8 col-sm-offset-2">
-		<form (ngSubmit)="onSubmitForm(patientEditForm)" #patientEditForm="ngForm">
+		<form (ngSubmit)="onSubmitPatientForm(patientEditForm)" #patientEditForm="ngForm">
 			<div class="form-group">
 				<h3>Last Name : {{patient.patientLastName }} </h3>
 				<input type="text" id="patientLastName" class="form-control" name="patientLastName"
@@ -62,8 +51,9 @@
 				<input type="text" id="patientEmail" class="form-control" name="patientEmail"
 					[(ngModel)]="patient.patientEmail">
 			</div>
-			<button class="btn btn-danger" (click)="onCancelEdit()">Cancel</button>
+			<button class="btn btn-danger" (click)="onCancelEdit(patientEditForm)">Cancel</button>
 			<button type="submit" *ngIf="isEditable" class="btn btn-success">Update</button>
 		</form>
 	</div>
 </div>
+<app-single-patient-history [patient]="patient"></app-single-patient-history>

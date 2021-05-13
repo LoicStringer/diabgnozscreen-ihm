@@ -7,13 +7,13 @@ import { Pageable } from "../pagination/pageable";
 
 @Injectable()
 export class PatientHistoryService {
-	
+
 	notesPageSubject: Subject<Page<Note>> = new Subject<Page<Note>>();
 	noteSubject: Subject<Note> = new Subject<Note>();
 	notesPage: Page<Note> = new Page<Note>();
 	note: Note = new Note();
 	apiUrl = 'http://localhost:8082/diabgnoz/patient-history/';
-	
+
 	constructor(private httpClient: HttpClient) { }
 
 	emitNotesPageSubject() {
@@ -32,13 +32,44 @@ export class PatientHistoryService {
 		return paginationOptions;
 	}
 
-	getPatientHistory(patientId:number, pageable: Pageable) {
+	getPatientHistory(patientId: number, pageable: Pageable) {
 		this.httpClient
-			.get<Page<Note>>(this.apiUrl+ patientId + this.buildUrlPaginationOptions(pageable))
+			.get<Page<Note>>(this.apiUrl + patientId + this.buildUrlPaginationOptions(pageable))
 			.subscribe(
 				(response) => {
 					this.notesPage = response;
 					this.emitNotesPageSubject();
+					console.log(response);
+				},
+				(error) => {
+					console.log('Erreur de chargement ! ' + error);
+				}
+			);
+	}
+	
+	addNote(noteToAdd: Note){
+		this.httpClient
+			.post<Note>(this.apiUrl, noteToAdd)
+			.subscribe(
+				(response) => {
+					this.note = response;
+					this.emitNoteSubject();
+					console.log(response);
+				},
+				(error) => {
+					console.log('Erreur de chargement ! ' + error);
+				}
+			);
+	}
+
+	updatePatientHistoryNote(updatedNote: Note) {
+		this.httpClient
+			.put<Note>(this.apiUrl, updatedNote)
+			.subscribe(
+				(response) => {
+					this.note = response;
+					this.emitNoteSubject();
+					console.log(response);
 				},
 				(error) => {
 					console.log('Erreur de chargement ! ' + error);
