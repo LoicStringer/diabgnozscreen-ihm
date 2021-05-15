@@ -10,7 +10,6 @@ import { PatientHistoryService } from '../services/patient-history.service';
 export class PatientHistoryItemComponent implements OnInit {
 
 	@Input() note!: Note;
-	@Output() updatedNoteEvent = new EventEmitter();
 	noteContentCopy!: string;
 	isEditable: boolean = false;
 
@@ -23,11 +22,9 @@ export class PatientHistoryItemComponent implements OnInit {
 	}
 
 	onUpdateNote() {
-		let updatedNote: Note = this.note;
-		updatedNote.noteContent = this.noteContentCopy;
-		this.patientHistoryService.updatePatientHistoryNote(updatedNote);
+		this.note.noteContent = this.noteContentCopy;
+		this.patientHistoryService.updatePatientHistoryNote(this.note);
 		this.isEditable = false;
-		this.updatedNoteEvent.emit();
 	}
 
 	onEdit() {

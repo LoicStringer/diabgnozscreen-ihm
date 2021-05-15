@@ -34,8 +34,8 @@ export class SinglePatientHistoryComponent implements OnInit {
 		this.notePageSusbscription.unsubscribe();
 	}
 
-	getPatientHistory(patientId: number) {
-		this.patientHistoryService.getPatientHistory(patientId, this.notesPage.pageable);
+	public getPatientHistory(patientId: number) {
+		this.patientHistoryService.getPatientHistory(patientId,this.notesPage.pageable);
 		this.notePageSusbscription = this.patientHistoryService.notesPageSubject.subscribe(
 			(notesPage: Page<Note>) => {
 				this.notesPage = notesPage;
@@ -51,10 +51,6 @@ export class SinglePatientHistoryComponent implements OnInit {
 
 	public getPreviousPage(): void {
 		this.notesPage.pageable = this.paginationService.getPreviousPage(this.notesPage);
-		this.getPatientHistory(+this.patientId!);
-	}
-
-	onUpdateNote() {
 		this.getPatientHistory(+this.patientId!);
 	}
 
@@ -78,6 +74,5 @@ export class SinglePatientHistoryComponent implements OnInit {
 		noteToAdd.patientId = +this.patientId!;
 		this.patientHistoryService.addNote(noteToAdd);
 		this.onCancelAddNote();
-		this.getPatientHistory(+this.patientId!);
 	}
 }

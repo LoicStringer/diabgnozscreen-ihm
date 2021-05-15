@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Patient } from "../models/patient.model";
 import { Page } from "../pagination/page";
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Subject } from "rxjs";
 import { Pageable } from "../pagination/pageable";
 
@@ -12,7 +12,7 @@ export class PatientService {
 	patientSubject: Subject<Patient> = new Subject<Patient>();
 	patientsPage: Page<Patient> = new Page<Patient>();
 	patient: Patient = new Patient();
-	apiUrl = 'http://localhost:8081/diabgnoz/patients/';
+	apiUrl = 'http://localhost:8081/diabgnoz/patients';
 
 	constructor(private httpClient: HttpClient) { }
 
@@ -33,34 +33,28 @@ export class PatientService {
 	}
 
 	getPatientsPage(patientLastName: any, pageable: Pageable) {
-		let url = this.apiUrl+"?patientLastName"+this.buildUrlPaginationOptions(pageable);
-		if(patientLastName!=undefined){
-			url = this.apiUrl+"?patientLastName="+patientLastName+this.buildUrlPaginationOptions(pageable);
+		let url = this.apiUrl + "?patientLastName" + this.buildUrlPaginationOptions(pageable);
+		if (patientLastName != undefined) {
+			url = this.apiUrl + "?patientLastName=" + patientLastName + this.buildUrlPaginationOptions(pageable);
 		}
-		this.httpClient 
+		this.httpClient
 			.get<Page<Patient>>(url)
 			.subscribe(
 				(response) => {
 					this.patientsPage = response;
 					this.emitPatientPageSubject();
-				},
-				(error) => {
-					console.log('Erreur de chargement ! ' + error);
 				}
 			);
 	}
 
 	getPatientById(patientId: number) {
-		const url = this.apiUrl + patientId;
+		const url = this.apiUrl + '/' + patientId;
 		this.httpClient
 			.get<Patient>(url)
 			.subscribe(
 				(response) => {
 					this.patient = response;
 					this.emitPatientSubject();
-				},
-				(error) => {
-					console.log('Erreur de chargement ! ' + error);
 				}
 			);
 	}
@@ -72,26 +66,20 @@ export class PatientService {
 				(response) => {
 					this.patient = response;
 					this.emitPatientSubject();
-				},
-				(error) => {
-					console.log('Erreur de chargement ! ' + error);
 				}
 			);
 	}
 
 	updatePatient(patientId: number, patientToUpdate: Patient) {
-		const url = this.apiUrl + patientId;
+		const url = this.apiUrl + '/' + patientId;
 		this.httpClient
 			.put<Patient>(url, patientToUpdate)
 			.subscribe(
 				(response) => {
 					this.patient = response;
 					this.emitPatientSubject();
-				},
-				(error) => {
-					console.log('Erreur de chargement ! ' + error);
 				}
 			);
 	}
-	
+
 }

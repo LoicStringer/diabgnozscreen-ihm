@@ -3,7 +3,7 @@
 	<h3>Patient History</h3>
 		<ul class="list-group">
 			<app-patient-history-item *ngFor="let note of notesPage.content" [note]="note"
-				(updatedNoteEvent)="onUpdateNote()"></app-patient-history-item>
+			></app-patient-history-item>
 		</ul>
 	</div>
 	<div class="col-xs-12 " *ngIf="isAddingNote">

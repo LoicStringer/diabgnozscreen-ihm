@@ -40,24 +40,18 @@ export class PatientHistoryService {
 					this.notesPage = response;
 					this.emitNotesPageSubject();
 					console.log(response);
-				},
-				(error) => {
-					console.log('Erreur de chargement ! ' + error);
 				}
 			);
 	}
-	
-	addNote(noteToAdd: Note){
+
+	addNote(noteToAdd: Note) {
 		this.httpClient
 			.post<Note>(this.apiUrl, noteToAdd)
 			.subscribe(
 				(response) => {
 					this.note = response;
 					this.emitNoteSubject();
-					console.log(response);
-				},
-				(error) => {
-					console.log('Erreur de chargement ! ' + error);
+					this.getPatientHistory(noteToAdd.patientId!, this.notesPage.pageable);
 				}
 			);
 	}
@@ -69,10 +63,7 @@ export class PatientHistoryService {
 				(response) => {
 					this.note = response;
 					this.emitNoteSubject();
-					console.log(response);
-				},
-				(error) => {
-					console.log('Erreur de chargement ! ' + error);
+					this.getPatientHistory(updatedNote.patientId!, this.notesPage.pageable);
 				}
 			);
 	}
