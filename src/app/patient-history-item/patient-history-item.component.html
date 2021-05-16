@@ -1,13 +1,26 @@
 <li *ngIf="!isEditable" [ngClass]="{'list-group-item' : true}" id="note">
 	<label>Note date : </label>
 	<p>{{note.createdDate | date : 'medium'}}</p>
+	<div *ngIf="note.lastModifiedDate">
+		<label>Last modified date: </label>
+		<p>{{note.lastModifiedDate | date : 'medium'}}</p>
+	</div>
 	<label>Note content : </label>
 	<p>{{note.noteContent}}</p>
-	<div *ngIf="note.lastMofiedDate!=null">
-		<label>Last modified date: </label>
-		<p>{{note.lastMofiedDate}}</p>
-	</div>
-	<button class="btn btn-primary float-right" [disabled]="isEditable" (click)="onEdit()">Edit</button>
-	<button class="btn btn-danger float-right" [disabled]="isEditable">Delete</button>
+	<button class="btn btn-primary" [disabled]="isEditable" (click)="onEdit()">Edit</button>
 	<button *ngIf="isEditable" class="btn btn-success">Update</button>
+</li>
+
+<li *ngIf="isEditable" [ngClass]="{'list-group-item' : true}" id="note">
+	<label>Note date : </label>
+	<p>{{note.createdDate | date : 'medium'}}</p>
+	<div *ngIf="note.lastModifiedDate">
+		<label>Last modified date: </label>
+		<p>{{note.lastModifiedDate | date : 'medium'}}</p>
+	</div>
+	<label>Note content : </label>
+	<textarea id="noteContent" class="form-control" name="noteContent"
+					[(ngModel)]="noteContentCopy"></textarea>
+	<button class="btn btn-danger" (click)="onCancelEdit()">Cancel</button>
+	<button class="btn btn-success" (click)="onUpdateNote()">Update</button>
 </li>

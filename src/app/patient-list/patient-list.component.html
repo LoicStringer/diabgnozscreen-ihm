@@ -1,12 +1,15 @@
 <div class="col-xs-12">
 	<h4>Patients Records</h4>
 	<label>Search by last name :</label>
-	<input typ="text" id="search" #search>
-	<button class="btn btn-success" id="searchButton" (click)="onSearch(search.value)">Search</button>
+	<input type="text" [(ngModel)]="patientLastName" id="search">
+	<button class="btn btn-success" id="searchButton" (click)="onSearch()">Search</button>
+	<button class="btn btn-danger" id="clearButton" (click)="onCancel()">Clear</button>
 	<ul class="list-group" id="patientsList">
 		<app-patient-item *ngFor="let patient of patientsPage.content" [patient]="patient">
 		</app-patient-item>
 	</ul>
-	<app-pagination-tool [page]="patientsPage" (nextPageEvent)="getNextPage()" (previousPageEvent)="getPreviousPage()">
+	<app-pagination-tool [page]="patientsPage" 
+						(nextPageEvent)="getNextPage()" 
+						(previousPageEvent)="getPreviousPage()">
 	</app-pagination-tool>
 </div>

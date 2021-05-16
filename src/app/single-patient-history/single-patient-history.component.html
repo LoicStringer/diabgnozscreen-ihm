@@ -1,7 +1,20 @@
-<div class="col-xs-12" id="patientHistory">
-	<ul class="list-group">
-		<app-patient-history-item *ngFor="let note of notesPage.content" [note]="note"></app-patient-history-item>
-	</ul>
-	<app-pagination-tool [page]="notesPage" (nextPageEvent)="getNextPage()" (previousPageEvent)="getPreviousPage()">
+<div class="row">
+	<div class="col-xs-12" *ngIf="!isAddingNote" id="patientHistory">
+	<h3>Patient History</h3>
+		<ul class="list-group">
+			<app-patient-history-item *ngFor="let note of notesPage.content" [note]="note"
+			></app-patient-history-item>
+		</ul>
+	</div>
+	<div class="col-xs-12 " *ngIf="isAddingNote">
+		<h3>Note Content</h3>
+		<textarea [(ngModel)]="noteContent" name="noteContent" class="form-control"></textarea>
+		<button class="btn btn-primary" (click)="onClearNote()">Clear</button>
+		<button class="btn btn-danger" (click)="onCancelAddNote()">Cancel</button>
+		<button class="btn btn-success" [disabled]="!noteContent" (click)="onSaveNote()">Save</button>
+	</div>
+	<button *ngIf="!isAddingNote" class="btn btn-success" id="addNoteButton" (click)="onAddNote()">Add Note</button>
+	<app-pagination-tool *ngIf="!isAddingNote" id="pageTool" [page]="notesPage" (nextPageEvent)="getNextPage()"
+		(previousPageEvent)="getPreviousPage()">
 	</app-pagination-tool>
 </div>

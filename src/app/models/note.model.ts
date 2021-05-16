@@ -1,17 +1,18 @@
-import ObjectID from "bson-objectid";
+
 
 export class Note {
-	
-	public noteId?:ObjectID;
+
+	public noteId?: string;
 	public patientId?: number;
 	public patientLastName?: string;
 	public noteContent?: string;
 	public createdDate?: Date;
-	public lastMofiedDate?: Date;
-	
+	public lastModifiedDate?: Date;
+
 	constructor(
 		init?: Partial<Note>
-	) { 
-		Object.assign(this,init)
+	) {
+		Object.assign(this, init)
 	}
+
 }

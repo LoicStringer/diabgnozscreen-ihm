@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Patient } from '../models/patient.model';
 import { Page } from '../pagination/page';
@@ -14,6 +15,8 @@ export class PatientListComponent implements OnInit {
 
 	patientsPage: Page<Patient> = new Page<Patient>();
 	patientPageSuscription!: Subscription;
+	patientLastName: any;
+
 
 	constructor(
 		private patientService: PatientService,
@@ -28,14 +31,8 @@ export class PatientListComponent implements OnInit {
 		this.patientPageSuscription.unsubscribe();
 	}
 
-	onSearch(patientLastName:string){
-		this.patientService.getPatientsPageByLastName(patientLastName,this.patientsPage.pageable);
-		this.patientPageSuscription = this.patientService.patientPageSubject.subscribe(
-			(patientsPage: Page<Patient>) => {
-				this.patientsPage = patientsPage;
-			}
-		);
-		this.patientService.emitPatientPageSubject();
+	onSearch() {
+		this.getPatientsData();
 	}
 
 	public getNextPage(): void {
@@ -49,7 +46,7 @@ export class PatientListComponent implements OnInit {
 	}
 
 	private getPatientsData(): void {
-		this.patientService.getPatientsPage(this.patientsPage.pageable);
+		this.patientService.getPatientsPage(this.patientLastName,this.patientsPage.pageable);
 		this.patientPageSuscription = this.patientService.patientPageSubject.subscribe(
 			(patientsPage: Page<Patient>) => {
 				this.patientsPage = patientsPage;
@@ -58,5 +55,9 @@ export class PatientListComponent implements OnInit {
 		this.patientService.emitPatientPageSubject();
 	}
 
+	onCancel() {
+		this.patientLastName='';
+		this.getPatientsData();
+	}
 
 }
