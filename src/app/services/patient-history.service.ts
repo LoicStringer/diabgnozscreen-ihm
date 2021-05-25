@@ -39,7 +39,6 @@ export class PatientHistoryService {
 				(response) => {
 					this.notesPage = response;
 					this.emitNotesPageSubject();
-					console.log(response);
 				}
 			);
 	}

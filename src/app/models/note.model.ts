@@ -1,5 +1,3 @@
-
-
 export class Note {
 
 	public noteId?: string;
