@@ -16,6 +16,8 @@ import { SinglePatientHistoryComponent } from './single-patient-history/single-p
 import { PatientHistoryService } from './services/patient-history.service';
 import { PatientHistoryItemComponent } from './patient-history-item/patient-history-item.component';
 import { HttpErrorInterceptorService } from './services/http-interceptor.service';
+import { DiabetesReportComponent } from './diabetes-report/diabetes-report.component';
+import { DiabetesReportService } from './services/diabetes-report.service';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { HttpErrorInterceptorService } from './services/http-interceptor.service
     SinglePatientViewComponent,
     NewPatientViewComponent,
     SinglePatientHistoryComponent,
-    PatientHistoryItemComponent
+    PatientHistoryItemComponent,
+    DiabetesReportComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { HttpErrorInterceptorService } from './services/http-interceptor.service
 	},
 	PaginationService,
 	PatientService,
-	PatientHistoryService
+	PatientHistoryService,
+	DiabetesReportService
 ],
   bootstrap: [AppComponent]
 })

@@ -13,7 +13,7 @@ import { PatientService } from '../services/patient.service';
 export class SinglePatientViewComponent implements OnInit {
 
 	patient!: Patient;
-	patientSuscription!: Subscription;
+	patientSubscription!: Subscription;
 	isEditable!: boolean;
 	isAddingNote!: boolean;
 	noteContent!: string;
@@ -29,12 +29,12 @@ export class SinglePatientViewComponent implements OnInit {
 	}
 
 	ngOnDestroy() {
-		this.patientSuscription.unsubscribe();
+		this.patientSubscription.unsubscribe();
 	}
 
 	getPatientData(patientId: number) {
 		this.patientService.getPatientById(patientId);
-		this.patientSuscription = this.patientService.patientSubject.subscribe(
+		this.patientSubscription = this.patientService.patientSubject.subscribe(
 			(patient: Patient) => {
 				this.patient = patient;
 			}
