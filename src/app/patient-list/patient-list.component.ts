@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Patient } from '../models/patient.model';
 import { Page } from '../pagination/page';
@@ -16,7 +15,6 @@ export class PatientListComponent implements OnInit {
 	patientsPage: Page<Patient> = new Page<Patient>();
 	patientPageSuscription!: Subscription;
 	patientLastName: any;
-
 
 	constructor(
 		private patientService: PatientService,

@@ -1,4 +1,5 @@
 <a routerLink='/patients'>Retour à la liste</a>
+<app-diabetes-report></app-diabetes-report>
 <h3>Patient Infos</h3>
 <div class="row" *ngIf="!isEditable">
 	<div class="col-sm-8 col-sm-offset-2">
@@ -13,6 +14,7 @@
 		<button *ngIf="isEditable" class="btn btn-success">Update</button>
 	</div>
 </div>
+
 <div class="row" *ngIf="isEditable">
 	<div class="col-sm-8 col-sm-offset-2">
 		<form (ngSubmit)="onSubmitPatientForm(patientEditForm)" #patientEditForm="ngForm">

@@ -1,10 +1,8 @@
 <li *ngIf="!isEditable" [ngClass]="{'list-group-item' : true}" id="note">
 	<label>Note date : </label>
 	<p>{{note.createdDate | date : 'medium'}}</p>
-	<div *ngIf="note.lastModifiedDate">
-		<label>Last modified date: </label>
-		<p>{{note.lastModifiedDate | date : 'medium'}}</p>
-	</div>
+	<label>Last modified date: </label>
+	<p>{{note.lastModifiedDate | date : 'medium'}}</p>
 	<label>Note content : </label>
 	<p>{{note.noteContent}}</p>
 	<button class="btn btn-primary" [disabled]="isEditable" (click)="onEdit()">Edit</button>
@@ -14,13 +12,10 @@
 <li *ngIf="isEditable" [ngClass]="{'list-group-item' : true}" id="note">
 	<label>Note date : </label>
 	<p>{{note.createdDate | date : 'medium'}}</p>
-	<div *ngIf="note.lastModifiedDate">
-		<label>Last modified date: </label>
-		<p>{{note.lastModifiedDate | date : 'medium'}}</p>
-	</div>
+	<label>Last modified date: </label>
+	<p>{{note.lastModifiedDate | date : 'medium'}}</p>
 	<label>Note content : </label>
-	<textarea id="noteContent" class="form-control" name="noteContent"
-					[(ngModel)]="noteContentCopy"></textarea>
+	<textarea id="noteContent" class="form-control" name="noteContent" [(ngModel)]="noteContentCopy"></textarea>
 	<button class="btn btn-danger" (click)="onCancelEdit()">Cancel</button>
 	<button class="btn btn-success" (click)="onUpdateNote()">Update</button>
 </li>
