@@ -18,7 +18,7 @@ export class DiabetesReportService {
 	
 		getDiabetesReport(patientId: number) {
 		const options = {headers: new HttpHeaders({
-			'Accept-Language':'en-US'
+			'Accept-Language':'fr-FR'
 		})
 		};
 		const url = this.apiUrl +  patientId;
